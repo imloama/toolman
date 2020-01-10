@@ -8,7 +8,7 @@ import './index.less'
 const commonNode = props => (
   // 为了同时兼容ssr/csr请保留此判断，如果你的layout没有内容请使用 props.children ?  props.children  : ''
   props.children
-    ? <div className='normal'><h1 className='title'><Link to='/'>Egg + React + SSR</Link><div className='author'>by ykfe</div></h1>{props.children}</div>
+    ? <div className='normal'>{props.children}</div>
     : ''
 )
 
@@ -24,7 +24,7 @@ const Layout = (props) => {
           <meta charSet='utf-8' />
           <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no' />
           <meta name='theme-color' content='#000000' />
-          <title>React App</title>
+          <title>Toolman CI/CD</title>
           {
             injectCss && injectCss.map(item => <link rel='stylesheet' href={item} key={item} />)
           }
