@@ -69,3 +69,6 @@ run/
 dist/
 
 package-lock.json
+
+# projects config
+projects.json
