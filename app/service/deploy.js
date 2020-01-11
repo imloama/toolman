@@ -6,7 +6,11 @@ class DeployService extends Service {
   index (proj) {
     shell.cd(proj.disk)
     shell.rm("-rf", proj.code)
-    let res = shell.exec(`git clone ${proj.source.repo} ${proj.code}`).code
+    let branch = ''
+    if(proj.source.branch){
+      branch = '-b ' + proj.source.branch
+    }
+    let res = shell.exec(`git clone ${branch} ${proj.source.repo} ${proj.code}`).code
     if(res !== 0){
       shell.exit(1)
       return -1

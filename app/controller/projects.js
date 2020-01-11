@@ -16,7 +16,7 @@ class ProjectsController extends Controller {
       ctx.body = { code: 400, msg: '项目不存在：'+ code }
       return
     }
-    const res = await ctx.service.deploy.index(code)
+    const res = await ctx.service.deploy.index(proj)
     ctx.type = 'text/json'
     if(res === 0){
       ctx.status = 200
