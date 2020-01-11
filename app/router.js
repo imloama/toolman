@@ -8,4 +8,7 @@ module.exports = app => {
     router.get(`${route.path}`, controller[route.controller][route.handler])
   })
   router.get('/api/getIndexData', controller.api.index)
+
+  router.get(`/api/deploy/:code`, controller.projects.deploy)
+
 }
