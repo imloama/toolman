@@ -4,7 +4,7 @@ const { Service } = require('egg')
 
 class DeployService extends Service {
   index (proj) {
-    let res = shell.cd(proj.disk)
+    let res = shell.cd(proj.disk).code
     if(res !== 0){
       console.log('目录不存在：' + proj.disk)
       return -1;
