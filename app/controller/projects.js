@@ -8,7 +8,8 @@ const projects = require('../../projects.json')
 class ProjectsController extends Controller {
 
   async deploy(){
-    const code = this.ctx.params.code
+    const { ctx } = this
+    const code =ctx.params.code
     const proj = projects[code]
     if(typeof proj === 'undefined'){
       ctx.type = 'text/json'
@@ -16,6 +17,7 @@ class ProjectsController extends Controller {
       ctx.body = { code: 400, msg: '项目不存在：'+ code }
       return
     }
+    console.log(proj)
     const res = await ctx.service.deploy.index(proj)
     ctx.type = 'text/json'
     if(res === 0){

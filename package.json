@@ -1,6 +1,6 @@
 {
-  "name": "ssr-with-js",
-  "version": "2.1.14",
+  "name": "toolman",
+  "version": "0.0.1",
   "dependencies": {
     "egg": "^2.21.0",
     "egg-scripts": "^2.11.0",
@@ -22,7 +22,7 @@
     "build:client": "cross-env NODE_ENV=production ykcli build",
     "build": "rimraf dist && npm run build:client && npm run build:server",
     "analyze": "cross-env NODE_ENV=production npm_config_report=true npm run build",
-    "start":"cross-env NODE_ENV=production egg-scripts start --daemon --title=toolman --env=prod",
+    "start": "cross-env NODE_ENV=production egg-scripts start --daemon --title=toolman --env=prod",
     "stop": "egg-scripts stop --title=toolman"
   },
   "browserslist": [

@@ -4,7 +4,11 @@ const { Service } = require('egg')
 
 class DeployService extends Service {
   index (proj) {
-    shell.cd(proj.disk)
+    let res = shell.cd(proj.disk).code
+    if(res !== 0){
+      console.log('目录不存在：' + proj.disk)
+      return -1;
+    }
     shell.rm("-rf", proj.code)
     let branch = ''
     if(proj.source.branch){
@@ -16,25 +20,25 @@ class DeployService extends Service {
     let res = shell.exec(scripts).code
     if(res !== 0){
       shell.exit(1)
-      return -1
+      return -2
     }
     shell.cd(proj.code)
     let bs = proj.scripts.build
     if(bs){
       res = shell.exec(bs).code
-      if(res!==0)return -2//编译失败
+      if(res!==0)return -3//编译失败
     }
     let cp = proj.scripts.copy
     if(cp){
       res = shell.exec(cp).code
-      if(res!==0)return -3//复制失败
+      if(res!==0)return -4//复制失败
     }
     shell.cd(proj.target)
     let stop = proj.scripts.stop
     res = shell.exec(stop).code
-    if(res!==0)return -4
+    if(res!==0)return -5
     let start = proj.scripts.start
-    if(shell.exec(start).code!==0)return -5
+    if(shell.exec(start).code!==0)return -6
     shell.echo(`部署${proj.code}成功！`)
     return 0
   }
