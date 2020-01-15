@@ -3,26 +3,25 @@ const shell = require('shelljs')
 const { Service } = require('egg')
 
 class DeployService extends Service {
-  index (proj) {
+  index (code, proj) {
     let res = shell.cd(proj.disk).code
     if(res !== 0){
       console.log('目录不存在：' + proj.disk)
       return -1;
     }
-    shell.rm("-rf", proj.code)
+    shell.rm("-rf", code)
     let branch = ''
     if(proj.source.branch){
       branch = '-b ' + proj.source.branch
     }
-    shell.cd(proj.disk)
-    let scripts = `git clone ${branch} ${proj.source.repo} ${proj.code}`
+    let scripts = `git clone ${branch} ${proj.source.repo} ${code}`
     console.log(`scripts =  ${scripts}`)
     res = shell.exec(scripts).code
     if(res !== 0){
       shell.exit(1)
       return -2
     }
-    shell.cd(proj.code)
+    shell.cd(code)
     let bs = proj.scripts.build
     if(bs){
       res = shell.exec(bs).code
@@ -39,7 +38,7 @@ class DeployService extends Service {
     if(res!==0)return -5
     let start = proj.scripts.start
     if(shell.exec(start).code!==0)return -6
-    shell.echo(`部署${proj.code}成功！`)
+    shell.echo(`部署${code}成功！`)
     return 0
   }
 }

@@ -18,7 +18,7 @@ class ProjectsController extends Controller {
       return
     }
     console.log(proj)
-    const res = await ctx.service.deploy.index(proj)
+    const res = await ctx.service.deploy.index(code,proj)
     ctx.type = 'text/json'
     if(res === 0){
       ctx.status = 200
